@@ -13,6 +13,8 @@ boolean addX = true;
 boolean addY = true;
 boolean isHorizontal = true;
 
+int r = 255, g = 255, b = 255;
+
 String zapText[] = {"Zap!", "Bzzt!", "Pop!", "Zip!", "Crack!"};
 int zapCooldown = 0;
 
@@ -72,7 +74,9 @@ void draw()
   
   if (inRange(mouseX, endX, 30) && inRange(mouseY, endY, 30) && zapCooldown <= 0) {
     background(255);
+    fill(r, g, b);
     line(endX, endY, mouseX, mouseY);
+    ellipse(mouseX, mouseY, 15, 15);
     fill(0);
     text(zapText[(int)(Math.random() * zapText.length)], mouseX, mouseY);
     zapCooldown += 200;
@@ -81,7 +85,10 @@ void draw()
 }
 void mousePressed()
 {
-  stroke((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
+  r = (int)(Math.random() * 255);
+  g = (int)(Math.random() * 255);
+  b = (int)(Math.random() * 255);
+  stroke(r, g, b);
 }
 
 boolean inRange(float a, float b, float range) {
