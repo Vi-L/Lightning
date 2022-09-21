@@ -4,17 +4,22 @@ void setup()
 {
   size(300,300);
   background(0, 0, 0);
+  stroke(255);
   strokeWeight(3);
+  textSize(30);
+  
 }
 boolean addX = true;
 boolean addY = true;
 boolean isHorizontal = true;
 
+String zapText[] = {"Zap!", "Bzzt!", "Pop!", "Zip!", "Crack!"};
+int zapCooldown = 0;
+
 void draw()
 {
   fill(0, 0, 0, 10);
   rect(0, 0, width, height);
-  stroke(255);
   
   if (isHorizontal) {
     // handle bounces off left and right side
@@ -64,12 +69,21 @@ void draw()
   line(startX, startY, endX, endY);
   startX = endX;
   startY = endY;
+  
+  if (inRange(mouseX, endX, 30) && inRange(mouseY, endY, 30) && zapCooldown <= 0) {
+    background(255);
+    line(endX, endY, mouseX, mouseY);
+    fill(0);
+    text(zapText[(int)(Math.random() * zapText.length)], mouseX, mouseY);
+    zapCooldown += 200;
+  }
+  zapCooldown--;
 }
 void mousePressed()
 {
-  background(0, 0, 0);
-  startX = 0;
-  startY = 150;
-  endX = 0;
-  endY = 150;
+  stroke((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
+}
+
+boolean inRange(float a, float b, float range) {
+  return (a > b - range && a < b + range);
 }
